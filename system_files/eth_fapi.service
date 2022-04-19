@@ -1,0 +1,18 @@
+[Unit]
+Description=eth_fapi
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/eth_api/fapi_folder
+ExecStart=uvicorn /home/eth_api/fapi_folder/main:app --reload --host 0.0.0.0
+RestartSec=10
+Restart=always
+
+StandardOutput=append:/home/eth_api/fapi_folder/api_log.log
+StandardError=append:/home/eth_api/fapi_folder/api_errors.log
+
+[Install]
+WantedBy=multi-user.target
